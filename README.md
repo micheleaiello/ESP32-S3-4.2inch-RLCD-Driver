@@ -1,6 +1,6 @@
 # Waveshare ESP32 S3 4.2inch RLCD Driver (MicroPython)
 
-This project provides a high-performance MicroPython driver for the Waveshare 4-inch Reflective LCD (RLCD). It utilizes the standard `framebuf` library for graphics primitives and an optimized SPI transmission method to update the display.
+This project provides a high-performance MicroPython driver for the [Waveshare 4-inch Reflective RLCD](https://docs.waveshare.com/ESP32-S3-RLCD-4.2). It utilizes the standard `framebuf` library for graphics primitives and an optimized SPI transmission method to update the display.
 
 **NOTE**: I currenly have a buggy version of the hardware so this code "seems" to work but I'll need further testing on a stable version of the hardware to confirm.
 
