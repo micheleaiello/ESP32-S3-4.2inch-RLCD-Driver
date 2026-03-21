@@ -82,8 +82,9 @@ async def scan_bluetooth():
     """Scans for available Bluetooth devices."""
     devices = {}
     def scan_callback(event, data):
-        addr_type, addr, adv_type, rssi, adv_data = data
-        devices[bytes(addr)] = rssi
+        if event == 5:  # _IRQ_SCAN_RESULT
+            addr_type, addr, adv_type, rssi, adv_data = data
+            devices[bytes(addr)] = rssi
 
     ble.irq(scan_callback)
     ble.gap_scan(2000, 30000, 30000)
@@ -110,11 +111,12 @@ async def main():
     for ssid, bssid, channel, rssi, authmode, hidden in networks:
         print(f"  SSID: {ssid.decode('utf-8')}, RSSI: {rssi}")
         
-    # print("Scanning for Bluetooth devices...")
-    # devices = await scan_bluetooth()
-    # print(f"Found {len(devices)} Bluetooth devices:")
-    # for addr, rssi in devices.items():
-    #     print(f"  Address: {addr}, RSSI: {rssi}")
+    print("Scanning for Bluetooth devices...")
+    devices = await scan_bluetooth()
+    print(f"Found {len(devices)} Bluetooth devices:")
+    for addr, rssi in devices.items():
+        mac_address = addr.hex(':')
+        print(f"  Address: {mac_address}, RSSI: {rssi}")
 
 if __name__ == '__main__':
     uasyncio.run(main())
