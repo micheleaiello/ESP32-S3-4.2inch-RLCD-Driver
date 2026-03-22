@@ -39,6 +39,7 @@ FONT = {
     '8': [5,0, 10,2, 10,4, 5,5, 10,6, 10,8, 5,10, 0,8, 0,6, 5,5, 0,4, 0,2, 5,0],
     '9': [1,10, 9,6, 9,2, 5,0, 1,2, 1,5, 9,5],
     '.': [4,10, 6,10, 6,8, 4,8, 4,10],
+    ':': [4,2, 4,4, 5,4, 5,2, 6,2, 6,4, -1,-1, 4,8, 4,10, 5,10, 5,8, 6,8, 6,10],
     '-': [1,5, 9,5],
     ' ': []
 }
@@ -91,6 +92,9 @@ def draw(display, text, x, y, scale=1, c=1, thickness=1):
                     if thickness > 2:
                         # Draw parallel line Y+1
                         display.line(x1, y1+1, x2, y2+1, c)
+                    if thickness > 3:
+                        # Draw parallel line X+1, Y+1
+                        display.line(x1+1, y1+1, x2+1, y2+1, c)
                     
                     curr_x = next_x
                     curr_y = next_y

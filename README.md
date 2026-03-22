@@ -52,9 +52,17 @@ Here's a sample output of the library:
 1.  Flash your ESP32 with the latest [MicroPython firmware](https://micropython.org/download/ESP32_GENERIC_S3/).
     1. `esptool --port /dev/cu.usbmodemXXXXX erase-flash`
     2. `esptool --chip esp32s3 --port /dev/cu.usbmodemXXXXX --baud 460800 write_flash -z 0 ~/Downloads/ESP32_GENERIC_S3-XXXXXXXX-vXXXXXXX.bin`
-2.  Upload `rlcd.py` to the root of your device.
-3.  (Optional) Upload `vector.py` if using vector fonts (used in `main.py`).
-4.  Upload `main.py` to run the demo.
+2.  Upload `rlcd.py`, `shtc3.py`, `sensors.py` and `vector.py` to the ESP32 filesystem.
+3.  Run `make_logo.py` which generates a nice pbm image that is used in the demo.
+4.  Run `main.py` to see a demo of the current capabilities.
+5.  To allow the device to connect to a WiFi network, create a `secrets.py` file with the following format:
+    ```python
+    # Wi-Fi Networks configuration
+    WIFI_NETWORKS = {
+        "YOUR_WIFI_SSID": "YOUR_WIFI_PASSWORD",
+        "ANOTHER_SSID": "ANOTHER_PASSWORD"
+    }
+    ```
 
 ## Usage
 

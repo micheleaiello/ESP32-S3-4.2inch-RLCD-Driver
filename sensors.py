@@ -74,6 +74,48 @@ def scan_wifi():
     """Scans for available Wi-Fi networks."""
     return wlan.scan()
 
+def connect_best_wifi(known_networks):
+    """Scans and connects to the best available known Wi-Fi network."""
+    if wlan.isconnected():
+        return True
+        
+    print("Scanning for known Wi-Fi networks...")
+    networks = scan_wifi()
+    
+    available_known = []
+    for net in networks:
+        ssid = net[0].decode('utf-8')
+        rssi = net[3]
+        if ssid in known_networks:
+            available_known.append((ssid, rssi))
+            
+    if not available_known:
+        print("No known Wi-Fi networks found in range.")
+        return False
+        
+    # Sort networks by RSSI (highest is strongest)
+    available_known.sort(key=lambda x: x[1], reverse=True)
+    
+    best_ssid = available_known[0][0]
+    password = known_networks[best_ssid]
+    
+    print(f"Connecting to best Wi-Fi: {best_ssid} (RSSI: {available_known[0][1]})...")
+    wlan.connect(best_ssid, password)
+    
+    max_wait = 10
+    while max_wait > 0:
+        if wlan.isconnected():
+            break
+        max_wait -= 1
+        time.sleep(1)
+            
+    if wlan.isconnected():
+        print("Connected! IP:", wlan.ifconfig()[0])
+        return True
+    else:
+        print("Failed to connect to Wi-Fi.")
+        return False
+
 # BLUETOOTH
 ble = bluetooth.BLE()
 ble.active(True)
