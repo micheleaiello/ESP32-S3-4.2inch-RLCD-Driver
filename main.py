@@ -42,7 +42,7 @@ async def main():
     
     # 2. Title: "RLCD"
     # Centered and Clean
-    vector.draw(display, "RLCD", 70, 10, scale=2, c=0, thickness=2)
+    vector.draw(display, "WS RLCD", 50, 10, scale=2, c=0, thickness=2)
 
     # ================= LEFT SIDE: BITMAPS =================
     # Quadrant 1: Sensors
@@ -149,6 +149,9 @@ async def main():
         
         display.show()
         
+        # Capture a screenshot for debug or demo purposes
+        # display.save_screenshot('output.pbm')
+
         # Execute background network scans AFTER the screen has been updated
         if cycle == 0 or cycle % 5 == 0:
             print(f"Cycle {cycle}: Performing network scans...")
